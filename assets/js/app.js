@@ -24,7 +24,7 @@ var svg = d3
 
 // Append a group to the SVG area and shift ('translate') it to the right and down to adhere
 // to the margins set in the "chartMargin" object.
-var scatterChart = svg.append("g")
+var chartGroup = svg.append("g")
   .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
   // Load data from data.csv (smoke vs age)
@@ -54,11 +54,11 @@ d3.csv("assets/data/data.csv").then(function(StateData) {
   const yAxis = d3.axisLeft(yScale);
  
   //append axis to chart
-  scatterChart.append("g").attr("transform", `translate(0, ${chartHeight})`).call(xAxis);
-  scatterChart.append("g").call(yAxis);
+  chartGroup.append("g").attr("transform", `translate(0, ${chartHeight})`).call(xAxis);
+  chartGroup.append("g").call(yAxis);
 
 //create plot
-scatterChart.selectAll("circle")
+chartGroup.selectAll("circle")
 .data(StateData)
 .enter()
 .append("circle")
@@ -70,7 +70,7 @@ scatterChart.selectAll("circle")
 .attr("opacity", 0.8);
 
 //add txt to each circle
-scatterChart.append("g")
+chartGroup.append("g")
   .selectAll('text')
   .data(StateData)
   .enter()
@@ -86,7 +86,7 @@ scatterChart.append("g")
   .attr("alignment-baseline", "central");
   
   //add titles to x,y axis
-  scatterChart.append("text")
+  chartGroup.append("text")
         .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + chartMargin.top})`)
         .attr("text-anchor", "middle")
         .attr("font-size", "16px")
@@ -94,7 +94,7 @@ scatterChart.append("g")
         .style("font-weight", "bold")
         .text("Median Age");
 
-        scatterChart.append("text")
+        chartGroup.append("text")
         .attr("y", 0 - ((chartMargin.left / 2+5)))
         .attr("x", 0 - (chartHeight / 2))
         .attr("text-anchor", "middle")
